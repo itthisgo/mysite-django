@@ -1,0 +1,37 @@
+name: Deploy Django App via CodeDeploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Create deployment package
+        run: |
+          zip -r mysite-deploy.zip . -x "*.git*" ".github/*" "__pycache__/*" "*.pyc"
+
+      - name: Upload to S3
+        run: |
+          aws s3 cp mysite-deploy.zip s3://${{ secrets.S3_BUCKET }}/mysite-deploy.zip
+
+      - name: Deploy with CodeDeploy
+        run: |
+          aws deploy create-deployment \
+            --application-name ${{ secrets.CODEDEPLOY_APPLICATION }} \
+            --deployment-group-name ${{ secrets.CODEDEPLOY_DEPLOYMENT_GROUP }} \
+            --s3-location bucket=${{ secrets.S3_BUCKET }},key=mysite-deploy.zip,bundleType=zip \
+            --region ap-northeast-2
