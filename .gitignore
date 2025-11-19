@@ -1,0 +1,115 @@
+# ==========================
+# Python / Django
+# ==========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django local DB
+db.sqlite3
+*.db
+
+# Django media/static
+/media/
+static/
+staticfiles/
+
+# Migrations (optional — you can keep or ignore them)
+# */migrations/
+# !*/migrations/__init__.py
+
+# ==========================
+# Environment / Secrets
+# ==========================
+.env
+*.env
+*.secret
+/secrets.json
+
+# ==========================
+# Virtual environments
+# ==========================
+venv/
+env/
+workenv/
+.venv/
+ENV/
+
+# ==========================
+# Logs & Cache
+# ==========================
+*.log
+*.pot
+*.pyc
+*.mo
+*.pid
+*.seed
+*.bak
+*.swp
+*.swo
+*.tmp
+*.cache/
+.cache/
+*.log.*
+
+# ==========================
+# IDE / Editor files
+# ==========================
+.vscode/
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# ==========================
+# OS generated files
+# ==========================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==========================
+# Unit test / coverage reports
+# ==========================
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# ==========================
+# Build / Distribution
+# ==========================
+build/
+dist/
+eggs/
+parts/
+sdist/
+develop-eggs/
+.installed.cfg
+*.egg
+*.egg-info/
+MANIFEST
+
+# ==========================
+# AWS / Deployment related
+# ==========================
+*.pem
+*.key
+*.crt
+*.csr
+*.zip
+*.tar.gz
+
+# CodeDeploy / CI/CD temp
+codedeploy/
+deploy_scripts/
+.tmp_deploy/
+__deployment_temp__/
+

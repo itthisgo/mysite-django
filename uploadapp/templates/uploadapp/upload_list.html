@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>업로드 목록 페이지</title>
+  <link rel="stylesheet" href="{% static 'uploadapp/css/style.css' %}">
+</head>
+<body>
+  <h1>업로드된 파일 목록</h1>
+  <img src="{% static 'dora.png' %}" width="100">
+  <ul>
+    {% for f in files %}
+      <li>
+        {{ f.file.name }} -
+        <a href="{{ f.file.url }}" download>다운로드</a>
+      </li>
+    {% empty %}
+      <li>업로드된 파일이 없습니다.</li>
+    {% endfor %}
+  </ul>
+  <p><a href="{% url 'upload_file' %}">새 파일 업로드</a></p>
+</body>
+</html>

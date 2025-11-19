@@ -1,0 +1,34 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/django_work/mysite
+
+hooks:
+  BeforeInstall:
+    - location: scripts/cleanup_old_deploy.sh
+      timeout: 60
+      runas: root
+    - location: scripts/prepare_directories.sh
+      runas: root
+
+  ApplicationStop:
+    - location: scripts/stop_server.sh
+      timeout: 60
+      runas: root
+
+  AfterInstall:
+    - location: scripts/install_dependencies.sh
+      timeout: 300
+      runas: root
+    - location: scripts/mount_efs.sh
+      runas: root  
+  
+  ApplicationStart:
+    - location: scripts/start_server.sh
+      timeout: 300
+      runas: root
+        
+  BeforeAllowTraffic:
+    - location: scripts/fix_permissions.sh
+      runas: root
