@@ -14,7 +14,7 @@ variable "aws_region" {
 
 variable "source_ami" {
   type    = string
-  default = "ami-0662f4965dfc70aca" # 기존 베이스 Ubuntu AMI
+  default = "ami-0662f4965dfc70aca"
 }
 
 variable "instance_type" {
@@ -66,12 +66,26 @@ build {
       "if [ ! -f /etc/environment ]; then echo 'ERROR: /etc/environment missing, aborting'; exit 1; fi",
 
       "echo '[6/7] Creating Gunicorn service...'",
-      "sudo bash -c 'cat <<EOF > /etc/systemd/system/gunicorn.service\n" +
-      "[Unit]\nDescription=Gunicorn Daemon for Django App\nAfter=network.target\n\n" +
-      "[Service]\nUser=ubuntu\nGroup=ubuntu\nWorkingDirectory=/home/ubuntu/django_work/mysite\n" +
-      "EnvironmentFile=/etc/environment\nExecStart=/home/ubuntu/venv/bin/gunicorn --workers 3 --bind 0.0.0.0:8000 mysite.wsgi:application\nRestart=always\nRestartSec=5\n\n" +
-      "[Install]\nWantedBy=multi-user.target\nEOF'",
+      <<-EOF
+sudo tee /etc/systemd/system/gunicorn.service > /dev/null <<EOL
+[Unit]
+Description=Gunicorn Daemon for Django App
+After=network.target
 
+[Service]
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/django_work/mysite
+EnvironmentFile=/etc/environment
+ExecStart=/home/ubuntu/venv/bin/gunicorn --workers 3 --bind 0.0.0.0:8000 mysite.wsgi:application
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOL
+EOF
+      ,
       "echo '[7/7] Enabling Gunicorn service...'",
       "sudo systemctl daemon-reload",
       "sudo systemctl enable gunicorn",
