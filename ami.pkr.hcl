@@ -46,7 +46,12 @@ build {
   provisioner "shell" {
     inline = [
       "echo '[1/7] Updating system packages...'",
-      "sudo apt update -y && sudo apt install -y python3-pip python3-venv unzip curl nfs-common awscli",
+      "sudo apt update -y && sudo apt install -y python3-pip python3-venv unzip curl nfs-common",
+
+      "echo '[1.1/7] Installing AWS CLI v2 manually...'",
+      "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscliv2.zip'",
+      "unzip /tmp/awscliv2.zip -d /tmp",
+      "sudo /tmp/aws/install",
 
       "echo '[2/7] Setting up Django project directory...'",
       "sudo mkdir -p /home/ubuntu/django_work/mysite",
