@@ -33,8 +33,10 @@ source "amazon-ebs" "mysite_ami" {
   ssh_username                = "ubuntu"
   ami_name                    = "mysite-django-{{timestamp}}"
   associate_public_ip_address = true
+  vpc_id                      = "vpc-062f26948615555c4"
+  subnet_id                   = "subnet-0be0b88d68e75ba9b"
   iam_instance_profile        = "mysiteRole"
-
+  
   tags = {
     Name = "mysite-django-ami"
   }
