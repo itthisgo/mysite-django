@@ -54,7 +54,7 @@ build {
     inline = [
       "echo '[1/8] Updating apt packages...'",
       "sudo apt update -y",
-      "sudo apt install -y python3 python3-venv python3-pip nginx curl unzip nfs-common",
+      "sudo apt install -y python3 python3-venv python3-pip nginx curl unzip nfs-common pkg-config libmariadb-dev build-essential",
 
       "echo '[2/8] Installing AWS CLI v2...'",
       "curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o '/tmp/awscliv2.zip'",
