@@ -80,6 +80,7 @@ build {
       "User=ubuntu",
       "Group=ubuntu",
       "WorkingDirectory=/home/ubuntu/django_work/mysite",
+      "Environment=\"PATH=/home/ubuntu/venv/bin\""
       "ExecStart=/home/ubuntu/venv/bin/gunicorn --workers 3 --bind 0.0.0.0:8000 mysite.wsgi:application",
       "EnvironmentFile=/etc/environment",
       "Restart=always",
