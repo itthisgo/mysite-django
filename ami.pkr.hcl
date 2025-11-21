@@ -34,7 +34,7 @@ source "amazon-ebs" "mysite_ami" {
   ami_name                    = "mysite-django-{{timestamp}}"
   associate_public_ip_address = true
   vpc_id                      = "vpc-062f26948615555c4"
-  subnet_id                   = "subnet-0be0b88d68e75ba9b"
+  subnet_id                   = "subnet-06d864708de5e6457"
   iam_instance_profile        = "mysite-s3-fullaccess"
   
   tags = {
