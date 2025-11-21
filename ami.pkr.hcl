@@ -80,7 +80,7 @@ build {
       "User=ubuntu",
       "Group=ubuntu",
       "WorkingDirectory=/home/ubuntu/django_work/mysite",
-      "Environment='PATH=/home/ubuntu/venv/bin'",
+      "Environment=\"PATH=/home/ubuntu/venv/bin\"",
       "ExecStart=/home/ubuntu/venv/bin/gunicorn --workers 3 --bind 0.0.0.0:8000 mysite.wsgi:application",
       "EnvironmentFile=/etc/environment",
       "Restart=always",
@@ -98,10 +98,7 @@ build {
       "",
       "[Service]",
       "Type=oneshot",
-      "ExecStart=/usr/bin/bash -c 'mkdir -p /mnt/efs /home/ubuntu/django_work/mysite/media && \
-      mount -t nfs4 -o nfsvers=4.1 ${var.efs_id}.efs.ap-northeast-2.amazonaws.com:/ /mnt/efs && \
-      mount --bind /mnt/efs /home/ubuntu/django_work/mysite/media && \
-      chown -R ubuntu:ubuntu /home/ubuntu/django_work/mysite/media'",
+      "ExecStart=/usr/bin/bash -c \"mkdir -p /mnt/efs /home/ubuntu/django_work/mysite/media && mount -t nfs4 -o nfsvers=4.1 ${var.efs_id}.efs.ap-northeast-2.amazonaws.com:/ /mnt/efs && mount --bind /mnt/efs /home/ubuntu/django_work/mysite/media && chown -R ubuntu:ubuntu /home/ubuntu/django_work/mysite/media\"",
       "RemainAfterExit=yes",
       "",
       "[Install]",
